@@ -21,8 +21,11 @@ export function OnboardingPage() {
         contact_email: contactEmail,
       })
       navigate('/listings', { replace: true })
-    } catch {
-      setError('Could not save your profile. Try again.')
+    } catch (err: unknown) {
+      const msg =
+        (err as { response?: { data?: { error?: string } } })?.response?.data?.error
+        ?? 'Could not save your profile. Try again.'
+      setError(msg)
     } finally {
       setLoading(false)
     }

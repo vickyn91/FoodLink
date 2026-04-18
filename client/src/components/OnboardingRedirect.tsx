@@ -25,7 +25,7 @@ export function OnboardingRedirect() {
     return () => {
       cancelled = true
     }
-  }, [isLoaded, isSignedIn, location.pathname])
+  }, [isLoaded, isSignedIn])
 
   if (!isLoaded || !isSignedIn || needsOnboarding === null) return null
 

@@ -1,16 +1,19 @@
 import { ClerkProvider, SignedIn } from '@clerk/clerk-react'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ApiAuthSetup } from './components/ApiAuthSetup'
 import { Layout } from './components/Layout'
 import { OnboardingRedirect } from './components/OnboardingRedirect'
 import { RequireAuth } from './components/RequireAuth'
 import { DashboardListingsPage } from './pages/DashboardListingsPage'
+import { HomePage } from './pages/HomePage'
 import { ListingDetailPage } from './pages/ListingDetailPage'
 import { ListingsPage } from './pages/ListingsPage'
+import { MessagesPage } from './pages/MessagesPage'
 import { NewListingPage } from './pages/NewListingPage'
 import { OnboardingPage } from './pages/OnboardingPage'
 import { SignInPage } from './pages/SignInPage'
 import { SignUpPage } from './pages/SignUpPage'
+import { ThreadPage } from './pages/ThreadPage'
 
 const clerkKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
@@ -22,7 +25,7 @@ function AppRoutes() {
         <OnboardingRedirect />
       </SignedIn>
       <Routes>
-        <Route path="/" element={<Navigate to="/listings" replace />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/sign-in/*" element={<SignInPage />} />
         <Route path="/sign-up/*" element={<SignUpPage />} />
 
@@ -39,17 +42,10 @@ function AppRoutes() {
           }
         >
           <Route path="/onboarding" element={<OnboardingPage />} />
-        </Route>
-
-        <Route
-          element={
-            <RequireAuth>
-              <Layout />
-            </RequireAuth>
-          }
-        >
           <Route path="/listings/new" element={<NewListingPage />} />
           <Route path="/dashboard/listings" element={<DashboardListingsPage />} />
+          <Route path="/messages" element={<MessagesPage />} />
+          <Route path="/messages/:listingId" element={<ThreadPage />} />
         </Route>
       </Routes>
     </>
