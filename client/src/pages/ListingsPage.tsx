@@ -13,7 +13,7 @@ export function ListingsPage() {
       .catch(() => setListings([]))
   }, [])
 
-  if (listings === null) {
+  if (!listings) {
     return <p className="muted">Loading listings…</p>
   }
 
